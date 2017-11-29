@@ -81,10 +81,10 @@ router.post('/c/:id/equipment', async (req, res) => {
 
     if (slot === 'Weapon') 
     {
-        const character = await Character.findById(req.params);
+        const character = await Character.findById(req.params.id);
                 character.equipment.weapon = [];
-                await character.equipment.weapon.push(equipment);
-                await character.save();
+                character.equipment.weapon.push(equipment);
+                character.save();
                 res.redirect('/characters/c/'+character.id);
     }
     else if (slot === 'Off-Hand')
