@@ -1,0 +1,65 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <p class="breadcrumb"><a href="/">Home</a> > Equipment</p>
+    <header id="eqIndex" class="jumbotron">
+                <div class="container">
+                <h1>DAYBREAK DATABASE</h1>
+                <p>View and create equipment for DayBreak RPG</p>
+            <p>
+                <a class="btn btn-primary btn-lg" href="/equipment/new">Add Equipment</a>
+            </p>   
+        </div>
+    </header>
+    
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Equipment</h3>
+        </div>
+    </div>
+    
+        <div class="row text-center">
+            
+                <% equipment.forEach((equipment) => { %>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="thumbnail">
+                            
+                            <div class="caption">
+                        <% if(equipment.slot === 'Head') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/c/c3/Ui-paperdoll-slot-head.png/revision/latest?cb=20070607015044">
+                          <% } else if (equipment.slot === 'Arms') { %>
+                               <img src="https://vignette.wikia.nocookie.net/wowwiki/images/2/22/Ui-paperdoll-slot-hands.png/revision/latest?cb=20070607015036">
+                          <% } else if (equipment.slot === 'Chest') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854">
+                          <% } else if (equipment.slot === 'Legs') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/a/a5/Ui-paperdoll-slot-feet.png/revision/latest?cb=20070607015023">
+                          <% } else if (equipment.slot === 'Weapon') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117">
+                          <% } else if (equipment.slot === 'Off-Hand') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/3/30/Ui-paperdoll-slot-secondaryhand.png/revision/latest?cb=20070607015335">
+                          <% } else if (equipment.slot === 'Neck') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/d/d4/Ui-paperdoll-slot-neck.png/revision/latest?cb=20070607015138">
+                          <% } else if (equipment.slot === 'Cloak') { %>
+                                <img src="https://vignette.wikia.nocookie.net/wowwiki/images/f/f4/Ui-paperdoll-slot-back.png/revision/latest?cb=20130608015302">
+                                <% } %>
+                               
+                               <div class="item-name">
+                                   <h3><%= equipment.name.toUpperCase() %></h3>
+                               </div>
+                               <br>
+                               <h4><%= equipment.quality %> <%= equipment.slot %></h4>
+                               <h4 id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= equipment.power %></h4>
+                                    <hr>
+                                <form action="/equipment/<%= equipment.id %>?_method=DELETE" method="POST">
+                                    <button id="deleteEq"><i class="fa fa-trash fa-4x" aria-hidden="true"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+           </div>
+        </div>
+    
+    
+
+<% include ../partials/footer %>

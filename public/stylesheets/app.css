@@ -1,0 +1,205 @@
+body {
+    background: url('http://www.desktop-background.com/download/o/2014/02/17/718653_subtle-backgrounds-on-pinterest_1800x1200_h.jpg');
+    background-size: cover;
+    color: #343434;
+}
+
+.buffer {
+    display: block;
+    height: 60px;
+}
+
+#status {
+    width: 155px;
+    font-size: 16px;
+    background: rgba(0,0,0,0);
+}
+
+#story {
+    overflow-y: scroll;
+    height: 570px;
+}
+
+.logo {
+    font-family: 'Fanwood Text', serif;
+}
+
+.breadcrumb {
+    background-color: rgba(0,0,0,0) 
+}
+
+#indexJumbo {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(0,0,0,0.6) 80%), url('http://wallup.net/wp-content/uploads/2016/04/10/297430-fantasy_armor-fantasy_art-sword-knight-748x421.png'), 50%;
+    background-size: cover;
+    color: white;
+    text-shadow: 1px 1px 10px #343434;
+}
+
+#eqIndex {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(0,0,0,0.8) 80%), url('https://img00.deviantart.net/62a9/i/2016/150/2/5/medieval_armour_design_explorations_by_bolziniori-da4d8at.jpg'), 50%;
+    background-size: cover;
+    color: white;
+    text-shadow: 1px 1px 10px #343434;
+}
+
+#show-char-sheet {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.4) 80%), url('http://bronxbardetroit.com/wp-content/uploads/2017/10/450-free-minimalist-subtle-patterns-on-subtle-background-textures-1.jpg');
+    background-size: cover;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+}
+
+.navbar, .navbar a {
+    background-color: #343434;
+    color: white;
+}
+
+.nav li a:hover {
+    border-bottom: 2px solid white;
+    background-color: #343434;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbnail img {
+    height: 110px;
+    width: 110px;
+}
+
+.breadcrumb {
+    font-size: 18px;
+}
+
+label {
+    padding-left: 60px;
+    font-size: 22px;
+}
+
+.rad {
+    padding-left: 40px;
+}
+
+label > input {
+    visibility: hidden;
+    position: absolute;
+}
+
+label > input + i {
+  cursor:pointer;
+  border:2px solid transparent;
+}
+
+label > input:checked + i {
+  color: #2477BA;
+  text-shadow: 3px 3px 15px grey;
+}
+
+.edit {
+    list-style: none;
+    font-size: 16px;
+    margin-top: 45px;
+}
+
+.delete {
+    text-align: center;
+    
+}
+
+#delete {
+    margin-left: 22%;
+}
+
+/*#deleteEq {*/
+/*    margin-left: 0%;*/
+/*}*/
+
+#delete i, #deleteEq i {
+    color: grey;
+    transition: 0.3s;
+}
+
+#delete i:hover, #deleteEq i:hover {
+    color: red;
+}
+
+#red {
+    color: red;
+}
+
+#power {
+    color: #006E94;
+}
+
+#small {
+    font-size: 12px;
+}
+
+#charName {
+    font-size: 38px;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+}
+
+.thumbnail, .jumbotron {
+    box-shadow: 1px 1px 5px #B0B0B0;
+    border: 1px solid #A9A9A9;
+    line-height: 150%;
+    min-height: 310px;
+}
+
+.thumbnail:hover {
+    box-shadow: 2px 2px 5px #909090;
+    border: 1px solid #343434;
+}
+
+.item {
+    height: 200px;
+    width: 200px;
+    border: 1px solid #343434;
+    margin: -8px auto 15px auto;
+    display:block;
+}
+
+.item-info {
+    margin: 10% auto 0 auto;
+    font-size: 12px;
+}
+
+.stats {
+    margin-top: 15%;
+    margin-left: 15%;
+}
+
+.stats>p {
+    font-size: 14px;
+}
+
+.item-name {
+    height: 40px;
+}
+
+.add-button {
+   float: right;
+   color: grey;
+   margin: 3px 170px;
+   position: absolute;
+   }
+   
+.add-button:hover {
+    color: green;
+}
+
+#lvl {
+    margin-left: 5px;
+    display: inline-block;
+}

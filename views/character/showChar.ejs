@@ -1,0 +1,235 @@
+<% include ../partials/header %>
+
+    <div class="container">
+        <!-- character plate -->
+            <p class="breadcrumb"><a href="/">Home</a> > <a href="/characters">Characters</a> > <%= character.name %></p>
+            <header id="show-char-sheet" class="jumbotron">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        <% if(character.role === 'Warrior') { %>
+                                    <img src="https://vignette.wikia.nocookie.net/wowwiki/images/e/ee/Warrior_crest.png/revision/latest?cb=20130813095500" style="height: 160px; width: 150px">
+                            <% } else if (character.role === 'Mage') { %>
+                                   <img src="https://vignette.wikia.nocookie.net/wowwiki/images/b/b8/Mage_crest.png/revision/latest?cb=20130813094952" style="height: 160px; width: 150px">
+                            <% } else if (character.role === 'Rogue') { %>
+                                    <img src="https://vignette.wikia.nocookie.net/wowwiki/images/e/e2/Rogue_crest.png/revision/latest?cb=20130813095139" style="height: 150px; width: 150px">
+                            <% } else if (character.role === 'Priest') { %>
+                                    <img src="https://vignette.wikia.nocookie.net/wowwiki/images/7/71/Priest_crest.png/revision/latest?cb=20130813095106" style="height: 150px; width: 150px">
+                            <% } else if (character.role === 'Ranger') { %>
+                                    <img src="https://vignette.wikia.nocookie.net/wowwiki/images/2/20/Hunter_crest.png/revision/latest?cb=20130813094921" style="height: 150px; width: 150px">
+                        <% } %>
+                        <h4><%= character.level %> <%= character.race %> <%= character.role %></h4>
+                        <div class="row centered" style="margin-left: 41%">
+                                <form type="hidden" action="/characters/c/<%= character.id %>/lvlup" method="POST">
+                                    <button id="lvl" class="btn btn-xs btn-success"><i class="fa fa-plus-circle fa-1g"></i></button>
+                                </form>
+                                <form type="hidden" action="/characters/c/<%= character.id %>/lvldown" method="POST">
+                                    <button id="lvl" class="btn btn-xs btn-danger"><i class="fa fa-minus-circle fa-1g"></i></button>
+                                </form>
+                        </div>
+                        <% if(character.guild === "Guildless") { %>
+                                   <h4 id="red">Guildless</h4>
+                             <%  } else { %>
+                               <h4 id="red">< <%= character.guild %> ></h4>
+                            <% } %>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <br><br>
+                            <h2 id="charName"><%= character.name.toUpperCase() %> 
+                            <% if(character.gender === 'Male') { %>
+                                <i class="fa fa-mars" aria-hidden="true"></i>
+                            <% } else { %>
+                                <i class="fa fa-venus" aria-hidden="true"></i>
+                            <% } %>
+                            </h2>
+                            <hr>
+                            <h2 id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> 
+                                <% let total = 0; %>
+                                <% if(weapon) { %>
+                                      <% total += weapon.power; %>
+                              <% } %>
+                                  <% if(offHand) { %>
+                                      <% total += offHand.power; %>
+                              <% } %>
+                                  <% if(neck) { %>
+                                      <% total += neck.power; %>
+                              <% } %>
+                                  <% if(cloak) { %>
+                                      <% total += cloak.power; %>
+                              <% } %>
+                                  <% if(head) { %>
+                                      <% total += head.power; %>
+                              <% } %>
+                                  <% if(arms) { %>
+                                      <% total += arms.power; %>
+                              <% } %>
+                                  <% if(chest) { %>
+                                      <% total += chest.power; %>
+                              <% } %>
+                                  <% if(legs) { %>
+                                      <% total += legs.power; %>
+                              <% } %>
+                            <%= character.power + total %>
+                            </h2>
+                            </div>
+                        <div class="col-md-4 text-center float-right">
+                            <ul class="edit">
+                                <li><a id="power" href="/characters/c/<%= character.id %>/edit" tag="edit"><i class="fa fa-pencil fa-2x" aria-hidden="true"></i>Edit Character</a></li>    
+                            </ul>
+                            <div class="stats">
+                                <% let move = 3; %>
+                                <% let hp = 1; %>
+                                <% let recov = 2; %>
+                                <% if (character.role === 'Rogue' || character.role === 'Ranger') {move = 1.5}%>
+                                <% if (character.role === 'Mage' || character.role === 'Priest') {recov = 1}%>
+                                <% if (character.role === 'Warrior') {hp = 1.5}%>
+                                <% let moveTotal = character.level/2 + (character.power/move)%>
+                                <h4>Movement: <%= moveTotal.toFixed(2) %></h4>
+                                <h4>Health: <%= (character.level * 100) + character.power + (total*hp) %></h4>
+                                <h4>Recovery: <%= character.level/2 + (character.power/recov) %></h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <!-- character equipment -->
+            <div class="container">
+                <div id="show-char-sheet" class="jumbotron">
+                    <div class="row" style="margin: 0 auto">
+                        <div class="col-md-4 text-center">
+                            <p>Weapon</p>
+                                <div class="item">
+                                        <a href="/characters/c/<%= character._id %>/equipment/pick/weapon"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                    <div class="item-info">
+                                        <% if(weapon) { %>
+                                        <img src="https://vignette.wikia.nocookie.net/wowwiki/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117" height="50px" width="50px">
+                                        <h4><%= weapon.name %></h4>
+                                        <p id="small"><%= weapon.quality %> <%= weapon.slot %></p>
+                                        <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= weapon.power %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            
+                         
+                            <p>Off-Hand</p>
+                                <div class="item">
+                                        <a href="/characters/c/<%= character._id %>/equipment/pick/off-hand"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                    <div class="item-info">
+                                        <% if(offHand) { %>
+                                        <img src="https://vignette.wikia.nocookie.net/wowwiki/images/3/30/Ui-paperdoll-slot-secondaryhand.png/revision/latest?cb=20070607015335" height="50px" width="50px">
+                                        <h4><%= offHand.name %></h4>
+                                        <p id="small"><%= offHand.quality %> <%= offHand.slot %></p>
+                                        <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= offHand.power %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            
+                            <p>Neck</p>
+                                <div class="item">
+                                        <a href="/characters/c/<%= character._id %>/equipment/pick/neck"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                    <div class="item-info">
+                                        <% if(neck) { %>
+                                        <img src="https://vignette.wikia.nocookie.net/wowwiki/images/d/d4/Ui-paperdoll-slot-neck.png/revision/latest?cb=20070607015138" height="50px" width="50px">
+                                        <h4><%= neck.name %></h4>
+                                        <p id="small"><%= neck.quality %> <%= neck.slot %> </p>
+                                        <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= neck.power %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            
+                            <p>Cloak</p>
+                                <div class="item">
+                                        <a href="/characters/c/<%= character._id %>/equipment/pick/cloak"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                    <div class="item-info">
+                                        <% if(cloak) { %>
+                                        <img src="https://vignette.wikia.nocookie.net/wowwiki/images/f/f4/Ui-paperdoll-slot-back.png/revision/latest?cb=20130608015302" height="50px" width="50px">
+                                        <h4><%= cloak.name %></h4>
+                                        <p id="small"><%= cloak.quality %> <%= cloak.slot %></p>
+                                        <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= cloak.power %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <h3>Status Affects</h3>
+                            <p>Debuffs</p>
+                            <div class="btn-group btn-group-sm">
+                                <button id="status" class="btn">Poisoned <input type="checkbox"></button>
+                                <button id="status" class="btn">Slowed <input type="checkbox"></button>
+                                <button id="status" class="btn">Cursed <input type="checkbox"></button>
+                                <button id="status" class="btn">Stunned <input type="checkbox"></button>
+                            </div>
+                            <hr>
+                            <p>Buffs</p>
+                            <div class="btn-group btn-group-sm">
+                                <button id="status" class="btn">Haste <input type="checkbox"></button>
+                                <button id="status" class="btn">Blessed <input type="checkbox"></button>
+                                <button id="status" class="btn">Barrier <input type="checkbox"></button>
+                                <button id="status" class="btn">Regen <input type="checkbox"></button>
+                            </div>
+                            <hr>
+                            <h3 class="text-center">Character Story</h3>
+                            <div id="story">
+                            <p style="font-size: 11px"> <%= character.story %> </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <p>Head</p>
+                                <div class="item">
+                                        <a href="/characters/c/<%= character._id %>/equipment/pick/head"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                    <div class="item-info">
+                                        <% if(head) { %>
+                                        <img src="https://vignette.wikia.nocookie.net/wowwiki/images/c/c3/Ui-paperdoll-slot-head.png/revision/latest?cb=20070607015044" height="50px" width="50px">
+                                        <h4><%= head.name %></h4>
+                                        <p id="small"><%= head.quality %> <%= head.slot %></p>
+                                        <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= head.power %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            
+                            <p>Arms</p>
+                                <div class="item">
+                                        <a href="/characters/c/<%= character._id %>/equipment/pick/arms"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                    <div class="item-info">
+                                        <% if(arms) { %>
+                                        <img src="https://vignette.wikia.nocookie.net/wowwiki/images/2/22/Ui-paperdoll-slot-hands.png/revision/latest?cb=20070607015036" height="50px" width="50px">
+                                        <h4><%= arms.name %></h4>
+                                        <p id="small"><%= arms.quality %> <%= arms.slot %></p>
+                                        <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= arms.power %></p>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                
+                            <p>Chest</p>
+                                <div class="item">
+                                            <a href="/characters/c/<%= character._id %>/equipment/pick/chest"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                        <div class="item-info">
+                                            <% if(chest) { %>
+                                            <img src="https://vignette.wikia.nocookie.net/wowwiki/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854" height="50px" width="50px">
+                                            <h4><%= chest.name %></h4>
+                                            <p id="small"><%= chest.quality %> <%= chest.slot %></p>
+                                            <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= chest.power %></p>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                            <p>Legs</p>
+                                <div class="item">
+                                            <a href="/characters/c/<%= character._id %>/equipment/pick/legs"><div class="add-button"><i class="fa fa-plus-square fa-2x" aria-hidden="true"></i></div></a>
+                                        <div class="item-info">
+                                            <% if(legs) { %>
+                                            <img src="https://vignette.wikia.nocookie.net/wowwiki/images/a/a5/Ui-paperdoll-slot-feet.png/revision/latest?cb=20070607015023" height="50px" width="50px">
+                                            <h4><%= legs.name %></h4>
+                                            <p id="small"><%= legs.quality %> <%= legs.slot %></p>
+                                            <p id="power"><i class="fa fa-sun-o fa-1g" aria-hidden="true"></i> <%= legs.power %></p>
+                                            <% } %>
+                                        </div>
+                                    </div>   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+        
+            
+
+<% include ../partials/footer %>
