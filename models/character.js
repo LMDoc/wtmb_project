@@ -9,7 +9,6 @@ let characterSchema = new mongoose.Schema({
         level: {type: Number, default: 1, min: 1, max: 20},
         power: {type: Number, default: 1},
         guild: {type: String, default: 'Guildless'},
-        buffs: [],
         equipment: {
                 weapon: [],
                 offHand: [],
