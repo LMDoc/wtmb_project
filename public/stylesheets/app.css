@@ -116,10 +116,6 @@ label > input:checked + i {
     margin-left: 22%;
 }
 
-/*#deleteEq {*/
-/*    margin-left: 0%;*/
-/*}*/
-
 #delete i, #deleteEq i {
     color: grey;
     transition: 0.3s;
