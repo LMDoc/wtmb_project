@@ -1,7 +1,7 @@
 app:
   autoredeploy: true
   environment:
-    - 'DB_URL=mongodb://mongodb/wtm'
+    - 'DB_URL=mongodb://mongodb/daybreak'
     - VIRTUAL_HOST=app.daybreak.gg
   image: 'lmdoc/wtmb_project:latest'
   ports:
