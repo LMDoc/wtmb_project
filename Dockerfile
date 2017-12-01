@@ -7,4 +7,4 @@ ADD package.json package-lock.json ./
 RUN npm install
 ADD . .
 
-CMD ["node", "src/app.js"]
+CMD ["node", "app.js"]
